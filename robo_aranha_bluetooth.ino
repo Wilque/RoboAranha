@@ -13,14 +13,14 @@
 #define serv    7                             //Saída para o servo motor 
 #define pwm    A0                             //Entrada analógica para ajuste de velocidade
 
-char Letra;                                   //Leitura da letra do controle bluetooth.
+char Letra, Modo;                                   //Leitura da letra do controle bluetooth.
 
 
 // --- Protótipo das Funções Auxiliares ---
 float measureDistance();                      //Função para medir, calcular e retornar a distância em cm
 void trigPulse();                             //Função que gera o pulso de trigger de 10µs
-//void speedAdjust();                           //Função para ajustar velocidade dos motores
-//void decision();                              //Função para tomada de decisão. Qual melhor caminho?
+void speedAdjust();                           //Função para ajustar velocidade dos motores
+void decision();                              //Função para tomada de decisão. Qual melhor caminho?
 void robotAhead();                            //Função para mover o robô para frente
 void robotBack();                             //Função para mover o robô para trás
 void robotRight();                            //Função para mover o robô para direita
@@ -62,22 +62,20 @@ void setup()
 
 
 // --- Loop Infinito ---
-void loop() 
-{
+void loop() {
   
-
-    
-  /*robotAhead();
+  Modo = Serial.read();
+  if (Modo == 'U'){
+    robotAhead();
   
   dist_cm = measureDistance();
   
-  if(dist_cm < 30) //distância menor que 20 cm?
-  {
+  if(dist_cm < 30){ //distância menor que 20 cm?
       decision();
-  }
-
-   
-   delay(100);*/
+  }   
+   delay(100);
+  } else if (Modo == 'W'){
+    
   
   Letra = Serial.read();
   
@@ -103,7 +101,7 @@ void loop()
     robotRight(); 
     break;
   }
-  
+ }
 
 } //end loop
 
