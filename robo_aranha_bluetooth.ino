@@ -64,8 +64,9 @@ void setup()
 // --- Loop Infinito ---
 void loop() {
   
-  Modo = Serial.read();
-  if (Modo == 'U'){
+  Modo = Serial.read();                       //Lê o modo que será usado.
+ 
+  if (Modo == 'U'){                           //Modo de controle automático.
     robotAhead();
   
   dist_cm = measureDistance();
@@ -74,8 +75,7 @@ void loop() {
       decision();
   }   
    delay(100);
-  } else if (Modo == 'W'){
-    
+  } else if (Modo == 'W'){                    //Modo manual.   
   
   Letra = Serial.read();
   
